@@ -20,7 +20,7 @@ public class Guest {
     private LocalDateTime createDate;//uygulamaya kayıt old tarih
 
     //gest rezervasyon olusturabilir
-    @OneToMany(mappedBy = "gust",orphanRemoval = true)//önce rezerveleri sil sonra gast i sil dedik orphanRemoval kullandık köklü silmek icin
+    @OneToMany(mappedBy = "guest",orphanRemoval = true)//önce rezerveleri sil sonra gast i sil dedik orphanRemoval kullandık köklü silmek icin
     // bir kisi birden fazzla rezervasyon yapabilir
     private List<Reservation> reservations = new ArrayList<>();
 
@@ -55,7 +55,7 @@ public class Guest {
 
     //objeyi kayıt etmeden önce bu değeri set etmesi icin
     @PrePersist
-    public void setCreateDate(LocalDateTime createDate) {
+    public void setCreateDate() {
         this.createDate = LocalDateTime.now();//burda setteri düzenledik
     }
 

@@ -17,7 +17,7 @@ public class Room {
     @Column(nullable = false)
     private Integer capacity;//odalar kac kişilik
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)//eager--> lazy yaptık gerek yok zorunlu değildi örnek yaptık
     @JoinColumn(nullable = false)//bu oda kesinlikle bir otele ait olmalı
     private Hotel hotel;//bu oda hangi otelin:ID ekler
 

@@ -1,9 +1,14 @@
 package com.tpe.controller;
 //3 runner deki start methodunu burda oluşturduk
 import com.tpe.config.HibernateUtils;
+import com.tpe.domain.Reservation;
+import com.tpe.repository.GuestRepository;
 import com.tpe.repository.HotelRepository;
+import com.tpe.repository.ReservationRepository;
 import com.tpe.repository.RoomRepository;
+import com.tpe.service.GuesService;
 import com.tpe.service.HotelService;
+import com.tpe.service.ReservationService;
 import com.tpe.service.RoomService;
 
 import java.util.Scanner;
@@ -24,6 +29,13 @@ public class HotelManagementSystem {
         ///NOT:sadece 1'er tane service ve repo objeleri oluşturulur ve tüm uygulamada kullanılır.
         RoomRepository roomRepository=new RoomRepository();
         RoomService roomService=new RoomService(roomRepository,hotelService);//aynısını roomservicede verdim
+
+        GuestRepository guestRepository = new GuestRepository();
+        GuesService guesService = new GuesService(guestRepository);
+
+        //reservationServicede constakter oluşturduk burda o constraktırların paramlarını istedi verdik.
+        ReservationRepository reservationRepository = new ReservationRepository();
+        ReservationService reservationService = new ReservationService(reservationRepository,roomService,guesService);
         int choice;
 
         do {
@@ -49,10 +61,10 @@ public class HotelManagementSystem {
                     displayRoomOperationsMenu(roomService);
                     break;
                 case 3:
-                    displayGuestOperationsMenu();
+                    displayGuestOperationsMenu(guesService);
                     break;
                 case 4:
-                    displayReservationOperationsMenu();
+                    displayReservationOperationsMenu(reservationService);
                     break;
                 case 0:
                     System.out.println("Good Bye...");
@@ -107,14 +119,28 @@ public class HotelManagementSystem {
                     hotelService.findHotelById(id);
                     break;
                 case 3:
+                    //7-a
+                    //id si verilen oteli silme (delete)
                     //şimdilik gectik
-                    break;
+                    System.out.println("Enter hotel ID: ");
+                    Long hotelid= scanner.nextLong();
+                    scanner.nextLine();
+
+                    hotelService.deleteHotelById(hotelid);                    break;
                 case 4:
                     //3-a: tüm otelleri listeleme
                     hotelService.getAllHotels();//böyle bir methodum olsaydı dioyrum
                     break;
                 case 5:
+                    //8-a
+                    //update etme
                     //ertelendi
+                    System.out.println("Enter hotel ID: ");
+                    Long updateHotelid= scanner.nextLong();
+                    scanner.nextLine();
+
+                    hotelService.ubdateHotelById(updateHotelid);
+
                     break;
                 case 0:
                     exit = true;
@@ -157,12 +183,18 @@ public class HotelManagementSystem {
                     break;
                 case 2:
                     //5-a:ÖDEV
+                    System.out.println("Enter hotel ID: ");
+                    Long id = scanner.nextLong();
+                    scanner.nextLine();
+                    roomService.findRoomById(id);
                     break;
                 case 3:
                 //oteli silmek icin
+                    //ÖDEV1:id si verien odayı silme
                     break;
                 case 4:
                     //6-a:ÖDEV
+                    roomService.getAllRooms();
                     break;
                 case 0:
                     exit = true;
@@ -177,7 +209,12 @@ public class HotelManagementSystem {
     }
 
     //guest operations
-    private static void displayGuestOperationsMenu() {
+    //1param verdik
+    //2 yukarda sevice ve repostoriy objesini tanımladık
+    //3 service de repoya baglayıp finaly yapıp param verdikten sonra
+    //4 burda objeye service kısmına reponun fiıldını yazdık .
+    //5 kısmı swicteki kızaran kısma guestserviceyi ekledik
+    private static void displayGuestOperationsMenu(GuesService guesService) {
         System.out.println("Guest Operation Menu");
 
         boolean exit = false;
@@ -195,16 +232,18 @@ public class HotelManagementSystem {
 
             switch (choice) {
                 case 1:
+                    //9-a
+                    guesService.saveGuest();
 
                     break;
                 case 2:
-
+                    //ÖDEV2:guesti bulma
                     break;
                 case 3:
-
+                    //ÖDEV3:guesti silme
                     break;
                 case 4:
-
+                    //ÖDEV 4:tüm konukları listeleme
                     break;
                 case 0:
                     exit = true;
@@ -217,7 +256,7 @@ public class HotelManagementSystem {
     }
 
     //reservation operations
-    private static void displayReservationOperationsMenu() {
+    private static void displayReservationOperationsMenu(ReservationService reservationService) {
         System.out.println("Reservation Operation Menu");
 
         boolean exit = false;
@@ -235,16 +274,17 @@ public class HotelManagementSystem {
 
             switch (choice) {
                 case 1:
-
+                    //10-a:yeni rezervasyon oluşturma
+                    reservationService.createReservation();
                     break;
                 case 2:
-
+                    //ÖDEV5:
                     break;
                 case 3:
-
+                    //ÖDEV6:
                     break;
                 case 4:
-
+                    //ÖDEV7:
                     break;
                 case 0:
                     exit = true;

@@ -82,8 +82,49 @@ public class HotelService {
         }
     }
 
+    //7-b
+    public void deleteHotelById(Long hotelid){
+        //idsi verilen hotel var mı
+        //2:b den sildik
+        Hotel foundHotel =findHotelById(hotelid);//aydiyi zaten getirdik deleteById gerek yok
+
+        if (foundHotel!=null){
+
+            System.out.println(foundHotel);
+            System.out.println("Are you sure to delete : ");//silmek istiyor musunuz
+            System.out.println("Please answer qith Y or N :");
+            String select = scanner.next();
+            if (select.equalsIgnoreCase("Y")){
+                hotelRepository.delete(foundHotel);//delete yeterli
+                System.out.println("Hotel is deleted...");
+            }else {
+                System.out.println("Delete operation is CANCELLED!!!");
+            }
+        }else {
+            System.out.println("Delete operation is CANCELLED!!!");
+        }
+
+    }
+
+    //8:b
+     public void ubdateHotelById(Long updateHotelid) {//mantıksal işlem yapılan kısım update delete save gibi işlemler.
 
 
+        Hotel existingHotel = findHotelById(updateHotelid);//id: lismi:A localation:X ise değiştiriyor
+
+        if (existingHotel != null){
+            System.out.println("Enter the new hotel name : ");
+            //değişkene set etmeden doğrudan parametrede kullandık
+            existingHotel.setName(scanner.nextLine());
+            System.out.println("Enter the new hotel location : ");
+            existingHotel.setLocation(scanner.nextLine());
+            hotelRepository.update(existingHotel);//id: ismi:B loca:Y oldu uygulama da bunu db  de değiştirmek icin repde bir method yazarız.
+            System.out.println("Hotel is update...");
+
+        }
+
+
+    }
 
 
 }

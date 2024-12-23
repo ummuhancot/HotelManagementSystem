@@ -19,7 +19,8 @@ public class Reservation {
     @Column(nullable = false)
     private LocalDate checkOutDate;//cıkış tarihi
 
-    @ManyToOne//bir rezervasyonu aynı anda 1 konuk oluşturabilir fakat 1 konuk 1 den fazla rezerve oluşturabilir
+    @ManyToOne//eager
+    //bir rezervasyonu aynı anda 1 konuk oluşturabilir fakat 1 konuk 1 den fazla rezerve oluşturabilir
     //rezervasyonla gestkonuk arasında iliski var
     @JoinColumn(nullable = false)
     private Guest guest;//konuk istediği kadar rezerve edebilir

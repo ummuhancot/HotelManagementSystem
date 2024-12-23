@@ -2,8 +2,10 @@ package com.tpe.service;
 //6
 import com.tpe.domain.Hotel;
 import com.tpe.domain.Room;
+import com.tpe.exceptions.RoomNotFoundException;
 import com.tpe.repository.RoomRepository;
 
+import java.util.List;
 import java.util.Scanner;
 //service classları repository classları ile görüşür
 ///hotelden sonra bu tarafa gectik
@@ -65,12 +67,51 @@ public class RoomService {
             System.out.println("Room could't saved!!!");
         }
 
+    }
 
+    //6-b: eğer tablo boş değilse tüm odaları listeleme:ÖDEV
+    public void getAllRooms() {
 
-
-
-
-
+        List<Room> allRooms = roomRepository.findAll();
+        if (allRooms.isEmpty()) {
+            System.out.println("No rooms faund");
+        } else {
+            System.out.println("*********** ALL ROOMS **********");
+            for (Room room : allRooms){
+                System.out.println(room);
+            }
+            System.out.println("*********** ALL ROOMS **********");
+        }
 
     }
+
+    //5-b : Id si verilen odayı tablodan bulup yazdırma ve geri döndürme:ÖDEV
+    public Room findRoomById(Long Roomid ){
+
+
+        try {
+            Room foundRoom= roomRepository.findById(Roomid);
+            if (foundRoom!=null) {
+                System.out.println("-------------------------------");
+                System.out.println(foundRoom);
+                System.out.println("-------------------------------");
+                return foundRoom;
+            } else {
+                throw new RoomNotFoundException("Room not found" + Roomid);
+            }
+        }catch (RoomNotFoundException e){
+            System.out.println(e.getMessage());
+        }
+
+        return null;
+
+    }
+
+
+
+
+
+
 }
+
+

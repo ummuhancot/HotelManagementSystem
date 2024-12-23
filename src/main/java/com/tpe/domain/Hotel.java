@@ -21,7 +21,8 @@ public class Hotel {
     //A otemi odamarı:11,12,13 var
     //oda listesinden 11 cıkarsam :12,13 -->room tablosunda kalmaya devam etsin tablodan silinmesin bu yüzden cascade=CascadeType.REMOVE dicez.
     //orphanRemoval = true:11 i tablodan da siler di buyüzden cascade sectik.
-    @OneToMany(mappedBy = "hotel",cascade = CascadeType.REMOVE)//todo:ilişki daha sonra düzenlenecek room u oluşturduk burayı devam ettirdik ilişkiye mappedBy ekledik room la eşleştirdik
+    @OneToMany(mappedBy = "hotel",cascade = CascadeType.REMOVE,fetch = FetchType.EAGER)//mecbur kaldık lazy -> eager yaptık önce hata alındı LeyziintException aldık
+    //todo:ilişki daha sonra düzenlenecek room u oluşturduk burayı devam ettirdik ilişkiye mappedBy ekledik room la eşleştirdik
     //ilişki diğer tarafta olacak
     private List<Room> rooms = new ArrayList<>();
 
