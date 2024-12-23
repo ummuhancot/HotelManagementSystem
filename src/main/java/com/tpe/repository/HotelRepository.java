@@ -8,7 +8,6 @@ import org.hibernate.Transaction;
 import java.util.List;
 
 public class HotelRepository {
-
     private Session session;//ihtiyac durumunda acmamız icin kayıt edicemiz zaman acıcaz
 
     //HotelManagementSystem ,displayHotelOperationsMenu switch de 1) icinde 1-a dedik orada
@@ -51,7 +50,7 @@ public class HotelRepository {
         try {
             session=HibernateUtils.getSessionFactory().openSession();
             ///hql sorgusu yada sql sorgusu yazarak bulabiliriz
-           return session.createQuery("FROM HOTEL",Hotel.class).getResultList();
+            return session.createQuery("FROM HOTEL",Hotel.class).getResultList();
         }catch (Exception e){
             System.out.println(e.getMessage());
         }finally {

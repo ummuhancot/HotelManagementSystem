@@ -126,7 +126,8 @@ public class HotelManagementSystem {
                     Long hotelid= scanner.nextLong();
                     scanner.nextLine();
 
-                    hotelService.deleteHotelById(hotelid);                    break;
+                    hotelService.deleteHotelById(hotelid);
+                    break;
                 case 4:
                     //3-a: tüm otelleri listeleme
                     hotelService.getAllHotels();//böyle bir methodum olsaydı dioyrum
